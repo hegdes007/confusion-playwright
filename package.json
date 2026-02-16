@@ -1,0 +1,11 @@
+{
+  "name": "confusion-playwright",
+  "version": "1.0.0",
+  "description": "Playwright Automation testing with TS for a conFuion test site",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
