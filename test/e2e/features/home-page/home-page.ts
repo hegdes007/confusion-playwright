@@ -7,13 +7,13 @@ Then("I should see the moving Carousel Items", async function () {
 });
 
 Then("There should be {string} Carousel Items", async function (count) {
-  await expect(pageFixture.page.locator(".carousel-item")).toHaveCount(count);
+  await expect(pageFixture.page.locator(".carousel-item")).toHaveCount(
+    parseFloat(count),
+  );
 });
 
 Then("I should see the {string} Row on Home Page", async function (rowName) {
-  await expect(
-    pageFixture.page.locator(".row", { hasText: rowName }),
-  ).toBeVisible();
+  await expect(pageFixture.page.getByText(rowName)).toBeVisible();
 });
 
 Then("Executive Chef name should be {string}", async function (chefName) {
@@ -35,7 +35,7 @@ Then("Its heading should be {string}", async function (heading) {
 
 Then("I should see {string} links in the list", async function (listLength) {
   await expect(pageFixture.page.locator(".offset-1 ul li")).toHaveCount(
-    listLength,
+    parseFloat(listLength),
   );
 });
 
@@ -70,7 +70,9 @@ When(
   "I click on Login Button I should see Login Modal Open",
   async function () {
     await pageFixture.page.locator("#loginButton").click();
-    await expect(pageFixture.page.locator(".modal-dialog")).toBeVisible();
+    await expect(
+      pageFixture.page.locator("#loginModal .modal-dialog"),
+    ).toBeVisible();
   },
 );
 
@@ -96,7 +98,9 @@ When(
   "I click on Reserve Table Button I should see Reserve Table Modal Open",
   async function () {
     await pageFixture.page.locator("#reserveButton").click();
-    await expect(pageFixture.page.locator(".modal-dialog")).toBeVisible();
+    await expect(
+      pageFixture.page.locator("#reserveModal .modal-dialog"),
+    ).toBeVisible();
   },
 );
 

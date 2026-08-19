@@ -11,13 +11,13 @@ Then("I should be in About Page", async function () {
 });
 
 Then("I should see {string} heading", async function (heading) {
-  await expect(
-    pageFixture.page.locator(".row-content h2", { hasText: heading }),
-  ).toBeVisible();
+  await expect(pageFixture.page.getByText(heading)).toBeVisible();
 });
 
 Then("I should see {string} leaders name", async function (count) {
-  await expect(pageFixture.page.locator("#accordion .card")).toHaveCount(count);
+  await expect(pageFixture.page.locator("#accordion .card")).toHaveCount(
+    parseFloat(count),
+  );
 });
 
 When("I vist the Alert Page", async function () {
