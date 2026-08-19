@@ -1,0 +1,76 @@
+import { When, Then } from "@cucumber/cucumber";
+import { expect } from "playwright/test";
+import { pageFixture } from "../../hooks/pageFixture";
+
+Then("I click on About link", async function () {
+  await pageFixture.page.locator("#Navbar ul li").nth(1).click();
+});
+
+Then("I should be in About Page", async function () {
+  await expect(pageFixture.page).toHaveURL(/about\.html/);
+});
+
+Then("I should see {string} heading", async function (heading) {
+  await expect(
+    pageFixture.page.locator(".row-content h2", { hasText: heading }),
+  ).toBeVisible();
+});
+
+Then("I should see {string} leaders name", async function (count) {
+  await expect(pageFixture.page.locator("#accordion .card")).toHaveCount(count);
+});
+
+When("I vist the Alert Page", async function () {
+  await pageFixture.page.goto(
+    "http://the-internet.herokuapp.com/javascript_alerts",
+  );
+});
+
+Then("Handling JS Alert - Validate Alert Text and Click OK", async function () {
+  const dialogPromise = pageFixture.page.waitForEvent("dialog");
+  await pageFixture.page.getByText("Click for JS Alert").click();
+  const dialog = await dialogPromise;
+  expect(dialog.message()).toBe("I am a JS Alert");
+  await dialog.accept();
+  await expect(pageFixture.page.locator("#result")).toHaveText(
+    "You successfully clicked an alert",
+  );
+});
+
+Then(
+  "Handling JS Confirm - Validate Confirm Text and Click OK",
+  async function () {
+    const dialogPromise = pageFixture.page.waitForEvent("dialog");
+    await pageFixture.page.getByText("Click for JS Confirm").click();
+    const dialog = await dialogPromise;
+    expect(dialog.message()).toBe("I am a JS Confirm");
+    await dialog.accept();
+    await expect(pageFixture.page.locator("#result")).toHaveText(
+      "You clicked: Ok",
+    );
+  },
+);
+
+Then("Handling JS Confirm - Click Cancel", async function () {
+  const dialogPromise = pageFixture.page.waitForEvent("dialog");
+  await pageFixture.page.getByText("Click for JS Confirm").click();
+  const dialog = await dialogPromise;
+  await dialog.dismiss();
+  await expect(pageFixture.page.locator("#result")).toHaveText(
+    "You clicked: Cancel",
+  );
+});
+
+Then(
+  "Handling JS Prompt - Input text in prompt, Click OK and Validate Input Text",
+  async function () {
+    const dialogPromise = pageFixture.page.waitForEvent("dialog");
+    await pageFixture.page.getByText("Click for JS Prompt").click();
+    const dialog = await dialogPromise;
+    expect(dialog.message()).toBe("I am a JS Prompt");
+    await dialog.accept("This is a test Text");
+    await expect(pageFixture.page.locator("#result")).toHaveText(
+      "You entered: This is a test Text",
+    );
+  },
+);
