@@ -109,7 +109,7 @@ When(
 );
 
 Then("I should click to choose the Number Of Guests", async function () {
-  await pageFixture.page.locator("input#1").click();
+  await pageFixture.page.locator("input[value='option1']").click();
 });
 
 Then("I should type the Date and Time", async function (dataTable) {
