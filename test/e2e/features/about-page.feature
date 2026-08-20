@@ -8,7 +8,7 @@ Scenario: Verify the About link in home page and Navigation bar in About Page
     Then I should see 'About' link should be active
 
 Scenario: Verify the display of Corporate leadership in About Page
-    When I visit the 'about' Page
+    When I visit the 'aboutus' Page
     Then I should see "Corporate Leadership" heading
     Then I should see "4" leaders name
     

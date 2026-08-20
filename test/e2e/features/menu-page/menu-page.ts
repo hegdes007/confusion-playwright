@@ -21,7 +21,6 @@ Then("I should see {string} dishes in Menu Page", async function (totalDishes) {
 });
 
 Then("I should see image for every dish in Menu Page", async function () {
-  pageFixture.page.waitForTimeout(500);
   for (const dish of await pageFixture.page.locator(".dish").all()) {
     await expect(dish.locator(".img-thumbnail")).toBeVisible();
   }

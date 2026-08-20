@@ -13,7 +13,9 @@ Then("There should be {string} Carousel Items", async function (count) {
 });
 
 Then("I should see the {string} Row on Home Page", async function (rowName) {
-  await expect(pageFixture.page.getByText(rowName)).toBeVisible();
+  await expect(
+    pageFixture.page.locator(".media-body", { hasText: rowName }),
+  ).toBeVisible();
 });
 
 Then("Executive Chef name should be {string}", async function (chefName) {
@@ -79,15 +81,17 @@ When(
 Then("I type Username and Password", async function (dataTable) {
   await pageFixture.page
     .locator("#exampleInputEmail3")
-    .type(dataTable.rawTable[1][0]);
+    .fill(dataTable.rawTable[1][0]);
   await pageFixture.page
     .locator("#exampleInputPassword3")
-    .type(dataTable.rawTable[1][1]);
+    .fill(dataTable.rawTable[1][1]);
 });
 
 Then("Clicking on Sign In closes the Modal", async function () {
   await pageFixture.page.locator(".btn-primary").nth(0).click();
-  await expect(pageFixture.page.locator(".modal-dialog")).not.toBeVisible();
+  await expect(
+    pageFixture.page.locator("#loginModal .modal-dialog"),
+  ).not.toBeVisible();
 });
 
 Then("I should see the Reserve Table Button in Home Page", async function () {
@@ -105,19 +109,21 @@ When(
 );
 
 Then("I should click to choose the Number Of Guests", async function () {
-  await pageFixture.page.locator(".row").nth(1).locator("#1").click();
+  await pageFixture.page.locator("input#1").click();
 });
 
 Then("I should type the Date and Time", async function (dataTable) {
   await pageFixture.page
     .locator("#date.form-control")
-    .type(dataTable.rawTable[1][0]);
+    .fill(dataTable.rawTable[1][0]);
   await pageFixture.page
     .locator("#time.form-control")
-    .type(dataTable.rawTable[1][1]);
+    .fill(dataTable.rawTable[1][1]);
 });
 
 Then("Clicking on Reserve closes the Reserve Table Modal", async function () {
   await pageFixture.page.locator(".btn-primary").nth(1).click();
-  await expect(pageFixture.page.locator(".modal-dialog")).not.toBeVisible();
+  await expect(
+    pageFixture.page.locator("#reserveModal .modal-dialog"),
+  ).not.toBeVisible();
 });

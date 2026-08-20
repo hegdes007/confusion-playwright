@@ -7,7 +7,7 @@ Then("I click on About link", async function () {
 });
 
 Then("I should be in About Page", async function () {
-  await expect(pageFixture.page).toHaveURL(/about\.html/);
+  await expect(pageFixture.page).toHaveURL(/aboutus\.html/);
 });
 
 Then("I should see {string} heading", async function (heading) {
