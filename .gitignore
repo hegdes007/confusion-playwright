@@ -142,3 +142,4 @@ dist
 /playwright/.cache/
 /playwright/.auth/
 @rerun.txt
+/reports

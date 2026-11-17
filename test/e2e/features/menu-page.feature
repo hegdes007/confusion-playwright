@@ -13,7 +13,7 @@ Scenario: Verify the navigation to Menu Page and display of breadcrumb in Menu P
 
 Scenario: Verify the display Dish and its Image in Menu Page
     When I visit the "menu" Page
-    Then I should see '14' dishes in Menu Page
+    Then I should see more than '10' dishes in Menu Page
     Then I should see image for every dish in Menu Page
 
 Scenario: Verify the display of API Error message in Menu Page

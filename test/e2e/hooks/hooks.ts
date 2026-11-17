@@ -5,7 +5,14 @@ import {
   After,
   setDefaultTimeout,
 } from "@cucumber/cucumber";
-import { Browser, BrowserContext, chromium, Page } from "playwright";
+import {
+  Browser,
+  BrowserContext,
+  chromium,
+  firefox,
+  webkit,
+  Page,
+} from "playwright";
 import { pageFixture } from "./pageFixture";
 
 let browser: Browser;
@@ -15,7 +22,19 @@ let page: Page;
 setDefaultTimeout(10000);
 
 BeforeAll(async function () {
-  browser = await chromium.launch({ headless: process.env.CI ? true : false });
+  const headless = process.env.HEADLESS !== "false";
+
+  const browserName = process.env.BROWSER_NAME || "chromium";
+
+  const browsers = {
+    chromium,
+    firefox,
+    webkit,
+  };
+
+  browser = await browsers[browserName as keyof typeof browsers].launch({
+    headless,
+  });
 });
 
 Before(async function () {

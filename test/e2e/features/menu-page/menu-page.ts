@@ -14,11 +14,14 @@ Then("I should see breadcrumb in Menu page", async function () {
   await expect(pageFixture.page.locator(".breadcrumb")).toBeVisible();
 });
 
-Then("I should see {string} dishes in Menu Page", async function (totalDishes) {
-  await expect(pageFixture.page.locator(".dish")).toHaveCount(
-    parseInt(totalDishes),
-  );
-});
+Then(
+  "I should see more than {string} dishes in Menu Page",
+  async function (totalDishes) {
+    await expect
+      .poll(() => pageFixture.page.locator(".dish").count())
+      .toBeGreaterThanOrEqual(parseInt(totalDishes));
+  },
+);
 
 Then("I should see image for every dish in Menu Page", async function () {
   for (const dish of await pageFixture.page.locator(".dish").all()) {

@@ -4,18 +4,25 @@
   "description": "Playwright Automation testing with TS for a conFuion test site",
   "main": "index.js",
   "scripts": {
-    "test": "npx cucumber-js",
-    "rerun": "npx cucumber-js -p rerun @rerun.txt"
+    "test:chromium": "cross-env BROWSER_NAME=chromium cucumber-js",
+    "test:firefox": "cross-env BROWSER_NAME=firefox cucumber-js",
+    "test:webkit": "cross-env BROWSER_NAME=webkit cucumber-js",
+    "test:all": "npm run test:chromium && npm run test:firefox && npm run test:webkit",
+    "test:headed": "cross-env HEADLESS=false node scripts/run-cross-browser.cjs",
+    "test:headless": "cross-env HEADLESS=true node scripts/run-cross-browser.cjs",
+    "test": "npm run test:headless"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "playwright": "^1.58.2"
+    "playwright": "1.63.0"
   },
   "devDependencies": {
-    "@cucumber/cucumber": "^12.7.0",
-    "@playwright/test": "^1.58.2",
+    "@cucumber/cucumber": "12.7.0",
+    "@playwright/test": "1.63.0",
     "@types/node": "^25.2.3",
+    "cross-env": "^10.1.0",
+    "multiple-cucumber-html-reporter": "4.6.0",
     "ts-node": "^10.9.2"
   }
 }
