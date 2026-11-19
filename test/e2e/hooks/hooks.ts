@@ -16,7 +16,6 @@ import {
 import { pageFixture } from "./pageFixture";
 
 let browser: Browser;
-let context: BrowserContext;
 let page: Page;
 
 setDefaultTimeout(10000);
@@ -38,14 +37,14 @@ BeforeAll(async function () {
 });
 
 Before(async function () {
-  context = await browser.newContext();
-  page = await context.newPage();
+  pageFixture.context = await browser.newContext();
+  page = await pageFixture.context.newPage();
   pageFixture.page = page;
 });
 
 After(async function () {
   await page.close();
-  await context.close();
+  await pageFixture.context.close();
 });
 
 AfterAll(async function () {
